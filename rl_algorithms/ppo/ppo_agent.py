@@ -150,9 +150,10 @@ class ppo_agent:
         nbatch_train = obs.shape[0] // self.args.batch_size
         for _ in range(self.args.epoch):
             np.random.shuffle(inds)
-            for start in range(0, obs.shape[0], nbatch_train):
+            for i in range(0, nbatch_train):
                 # get the mini-batchs
-                end = start + nbatch_train
+                start = i * self.args.batch_size
+                end = (i+1) * self.args.batch_size
                 mbinds = inds[start:end]
                 mb_obs = obs[mbinds]
                 mb_actions = actions[mbinds]
